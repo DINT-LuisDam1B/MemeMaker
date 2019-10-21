@@ -1,0 +1,50 @@
+﻿<Window x:Name="MemeMaker_Windows" x:Class="MemeMaker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MemeMaker"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <StackPanel Orientation="Vertical">
+        <Grid x:Name="Grid_Cabecera">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Margin="5">Texto Superior</TextBlock>
+            <TextBox Grid.Column="1" Margin="5"></TextBox>
+            <TextBlock Grid.Row="1" Margin="5">Texto Inferior</TextBlock>
+            <TextBox Grid.Row="1" Grid.Column="1" Margin="5"></TextBox>
+            <TextBlock Grid.Row="2" Margin="5">Alto</TextBlock>
+            <Slider Grid.Row="2" Grid.Column="1" Minimum="100" Maximum="1000" Margin="5"></Slider>
+            <TextBlock Grid.Row="3" Margin="5">Ancho</TextBlock>
+            <Slider Grid.Row="3" Grid.Column="1" Minimum="100" Maximum="1000" Margin="5"></Slider>
+            <TextBlock Grid.Row="4" Margin="5">Imagen</TextBlock>
+            <TextBox Grid.Row="4" Grid.Column="1" Margin="5"></TextBox>
+            <TextBlock Grid.Row="5" Margin="5">Borde</TextBlock>
+            <CheckBox Grid.Row="5" Grid.Column="1" Margin="5"></CheckBox>
+            
+        </Grid>
+        <Border x:Name="Border_Grid" Background="AliceBlue" BorderBrush="Black" BorderThickness="3" Margin="180,10" MinHeight="300"  >
+            <Grid x:Name="Grid_Meme">
+
+                <TextBlock VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="25">arriba</TextBlock>
+                <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="25">abajo</TextBlock>
+
+
+            </Grid>
+        </Border>
+
+    </StackPanel>
+</Window>
