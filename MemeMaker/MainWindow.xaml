@@ -6,54 +6,72 @@
         xmlns:local="clr-namespace:MemeMaker"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <StackPanel Orientation="Vertical">
-        <Grid x:Name="Grid_Cabecera">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
+    <Window.Resources>
+        <local:Converter x:Key="conversor"></local:Converter>
+        <Style x:Key="TextBoxSombreado" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect
+                        ShadowDepth="4"
+                        Direction="330"
+                        Color="Black"
+                        Opacity="0.35"
+                        BlurRadius="0.0" />
+                </Setter.Value>
+            </Setter>
+            
+        </Style>
+    </Window.Resources>
 
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Orientation="Vertical">
+            <Grid x:Name="Grid_Cabecera">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
 
-            <TextBlock Margin="5">Texto Superior</TextBlock>
-            <TextBox x:Name="TextBoxSuperior" Grid.Column="1" Margin="5"></TextBox>
-            
-            <TextBlock Grid.Row="1" Margin="5">Texto Inferior</TextBlock>
-            <TextBox x:Name="TextBox_Inferior" Grid.Row="1" Grid.Column="1" Margin="5"></TextBox>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="2" Margin="5">Alto</TextBlock>
-            <Slider x:Name="Slider_Alto" Grid.Row="2" Grid.Column="1" Minimum="100" Maximum="1000" Margin="5" Value="500"></Slider>
-            
-            <TextBlock Grid.Row="3" Margin="5">Ancho</TextBlock>
-            <Slider x:Name="Slider_Ancho" Grid.Row="3" Grid.Column="1" Minimum="100" Maximum="1000" Value="500" Margin="5"></Slider>
-            
-            <TextBlock x:Name="TextBlock_Imagen" Grid.Row="4" Margin="5">Imagen</TextBlock>
-            <TextBox x:Name="TextBox_Imagen" Grid.Row="4" Grid.Column="1" Margin="5"></TextBox>
-            
-            <TextBlock Grid.Row="5" Margin="5">Borde</TextBlock>
-            <CheckBox x:Name="CheckBox_Borde" Grid.Row="5" Grid.Column="1" Margin="5"></CheckBox>
-            
-        </Grid>
-        <Border x:Name="Border_Grid" Background="AliceBlue" BorderBrush="Black" BorderThickness="3" Margin="180,10" MinHeight="300" 
-                Width="{Binding ElementName=Slider_Alto,Path=Value}"
-                Height="{Binding ElementName=Slider_Ancho,Path=Value}"
-                IsEnabled="{Binding ElementName=CheckBox_Borde, Path=IsChecked}">
-            <Grid x:Name="Grid_Meme">
+                <TextBlock Margin="5">Texto Superior</TextBlock>
+                <TextBox x:Name="TextBoxSuperior" Grid.Column="1" Margin="5"></TextBox>
 
-                <TextBlock x:Name="TextBlock_TextoArriba" Text="{Binding ElementName=TextBoxSuperior,Path=Text}" Visibility="Collapsed" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="25"></TextBlock>
-                <TextBlock x:Name="TextBlock_TextoAbajo" Text="{Binding ElementName=TextBox_Inferior ,Path=Text}" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="25"></TextBlock>
-                <Image x:Name="Image_Imagen" Source="{Binding ElementName=TextBox_Imagen,Path=Text}"
-                        ></Image>
+                <TextBlock Grid.Row="1" Margin="5">Texto Inferior</TextBlock>
+                <TextBox x:Name="TextBox_Inferior" Grid.Row="1" Grid.Column="1" Margin="5"></TextBox>
+
+                <TextBlock Grid.Row="2" Margin="5">Alto</TextBlock>
+                <Slider x:Name="Slider_Alto" Grid.Row="2" Grid.Column="1" Minimum="100" Maximum="1000" Margin="5" Value="500"></Slider>
+
+                <TextBlock Grid.Row="3" Margin="5">Ancho</TextBlock>
+                <Slider x:Name="Slider_Ancho" Grid.Row="3" Grid.Column="1" Minimum="100" Maximum="1000" Value="500" Margin="5"></Slider>
+
+                <TextBlock x:Name="TextBlock_Imagen" Grid.Row="4" Margin="5">Imagen</TextBlock>
+                <TextBox x:Name="TextBox_Imagen" Grid.Row="4" Grid.Column="1" Margin="5"></TextBox>
+
+                <TextBlock Grid.Row="5" Margin="5">Borde</TextBlock>
+                <CheckBox x:Name="CheckBox_Borde" Grid.Row="5" Grid.Column="1" Margin="5" IsChecked="True"></CheckBox>
 
             </Grid>
-        </Border>
+            <Border x:Name="Border_Grid" Background="AliceBlue" BorderBrush="Black" Margin="180,10" MinHeight="300" 
+                    Width="{Binding ElementName=Slider_Alto,Path=Value}"
+                    Height="{Binding ElementName=Slider_Ancho,Path=Value}"
+                    BorderThickness="{Binding ElementName=CheckBox_Borde, Path=IsChecked,Converter={StaticResource conversor}}">
+                <Grid x:Name="Grid_Meme">
+                    <Image x:Name="Image_Imagen" Width="auto" Stretch="Fill" Source="{Binding ElementName=TextBox_Imagen,Path=Text}"></Image>
+                    <TextBlock x:Name="TextBlock_TextoArriba" Style="{StaticResource TextBoxSombreado}" Text="{Binding ElementName=TextBoxSuperior,Path=Text}" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="25" FontFamily="Impact"></TextBlock>
+                    <TextBlock x:Name="TextBlock_TextoAbajo" Style="{StaticResource TextBoxSombreado}" Text="{Binding ElementName=TextBox_Inferior ,Path=Text}" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="25" FontFamily="Impact"></TextBlock>
 
-    </StackPanel>
+                </Grid>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
 </Window>
